@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-browser-sync": "browser-sync start --server --file . --host --port 5000 --startPath telas/lista_cliente.html",
-    "start-json-server": "json-server --watch db.json"
+    "browser-sync": "browser-sync start --server --file . --host --port 5000 --startPath telas/lista_cliente.html",
+    "json-server": "json-server --watch db.json"
   },
   "author": "",
   "license": "ISC",
