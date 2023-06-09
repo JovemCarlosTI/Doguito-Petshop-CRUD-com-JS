@@ -1,23 +1,31 @@
 import { clienteService } from "../service/cliente-service.js";
 
-const id = new URL(window.location).searchParams.get('id');
+(async () => {
+    const id = new URL(window.location).searchParams.get('id');
 
-const inputNome = document.querySelector('[data-nome]');
-const inputEmail = document.querySelector('[data-email]');
+    const inputNome = document.querySelector('[data-nome]');
+    const inputEmail = document.querySelector('[data-email]');
 
-clienteService.detalhaCliente(id)
-    .then(dados => {
+    try {
+        const dados = await clienteService.detalhaCliente(id)
         inputNome.value = dados.nome;
         inputEmail.value = dados.email;
-    })
+    } catch (err) {
+        console.error(err)
+        window.location.href = '../telas/erro.html';
+    }
 
-const formulario = document.querySelector('[data-form]');
+    const formulario = document.querySelector('[data-form]');
 
-formulario.addEventListener('submit', (e) => {
-    e.preventDefault();
+    formulario.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    clienteService.atualizaCliente(id, inputNome.value, inputEmail.value)
-        .then(() => {
+        try {
+            await clienteService.atualizaCliente(id, inputNome.value, inputEmail.value)
             window.location.href = '../telas/edicao_concluida.html';
-        })
-})
+        } catch (err) {
+            console.error(err)
+            window.location.href = '../telas/erro.html';
+        }
+    })
+})()
